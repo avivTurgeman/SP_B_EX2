@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdexept>
+#include <stdexcept>
 
 #include "doctest.h"
 #include "sources/card.hpp"
@@ -12,38 +12,59 @@ using namespace std;
 
 TEST_CASE("Player Initialization"){
     Player player("player");
-    
     CHECK(player.stacksize() == 0);
     CHECK(player.cardesTaken() == 0);
 }
 
 TEST_CASE("Game Initialization"){
-    Player player1("player1");
-    Player player2("player2");
-    Game game1(player1, player2);
-    Game game2(player1, player1);
+    Player Alice("Alice");
+    Player Bob("Bob");
+    Player Charlie("Charlie");
+    Player Dani("Dani");
 
-    CHECK(player1.stacksize == 26);
-    CHECK(player2.stacksize == 26);
+    Game game1(Alice, Bob);
+    CHECK_NOTHROW(game1.playTurn());
+
+    Game game2(Alice, Alice);
     CHECK_THROWS(game2.playTurn());
     CHECK_THROWS(game2.playAll());
+
+    Game game3(Bob, Charlie);
+    CHECK_THROWS(game3.playTurn());
+    CHECK_THROWS(game3.playAll());
+
+    Game game4(Charlie, Dani);
+    CHECK_NOTHROW(game4.playTurn());
+    CHECK_NOTHROW(game4.playAll());
 }
 
 TEST_CASE("Turn Played"){
-    Player player1("player1");
-    Player player2("player2");
-    Game game(player1, player2);
+    Player Alice("Alice");
+    Player Bob("Bob");
+    Game game(Alice, Bob);
     game.playTurn();
+    
+    bool cardesTaken1 = ((Alice.cardesTaken() % 2 == 0) && (Bob.cardesTaken()== 0));
+    bool cardesTaken2 = ((Alice.cardesTaken() == 0) && (Bob.cardesTaken() % 2 == 0));
+    bool cardesTaken3 = ((Alice.cardesTaken() == 26) && (Bob.cardesTaken() == 26));
+    bool cardesTaken = cardesTaken1 || cardesTaken2 || cardesTaken3;
+    CHECK(cardesTaken);
 
-    CHECK(player1.stacksize == player2.stacksize);
+    for(int i = 0; i < 5; i++){
+        game.playTurn();
+        CHECK(Alice.stacksize() == Bob.stacksize());
+    }
 }
 
 TEST_CASE("Game played"){
-    Player player1("player1");
-    Player player2("player2");
-    Game game(player1, player2);
-    game.playAll();
+    Player Alice("Alice");
+    Player Bob("Bob");
+    Game game(Alice, Bob);
 
-    CHECK(player1.stacksize == 0);
-    CHECK(player2.stacksize == 0);
+    CHECK(Alice.stacksize() == 26);
+    CHECK(Bob.stacksize() == 26);
+    game.playAll();
+    CHECK(Alice.stacksize() == 0);
+    CHECK(Bob.stacksize() == 0);
+    CHECK_THROWS(game.playTurn());
 }

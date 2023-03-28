@@ -15,12 +15,14 @@ namespace ariel{
 
         public:
             Player(string Name){
-            name = Name;
-            stackSize = 0;
-            cards_winning_balanse = 0;
+                name = Name;
+                stackSize = 0;
+                cards_winning_balanse = 0;
             }
             Player(){
                 name = "player";
+                stackSize = 0;
+                cards_winning_balanse = 0;
             }
             int stacksize(){
                 return stackSize;
