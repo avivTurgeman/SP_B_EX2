@@ -1,3 +1,6 @@
+#ifndef GAME_HPP
+#define GAME_HPP
+
 #include <iostream>
 #include "player.hpp"
 using namespace std;
@@ -22,14 +25,16 @@ namespace ariel{
             void playAll(){
 
             }
-            void prinrWinner(){
+            void printWiner(){
 
             }
             void printLog(){
 
             }
-            void printStat(){
+            void printStats(){
 
             }
     };
 }
+
+#endif

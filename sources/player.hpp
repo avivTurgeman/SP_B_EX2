@@ -1,3 +1,6 @@
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include <iostream>
 #include <string.h>
 #include "card.hpp"
@@ -8,11 +11,13 @@ namespace ariel{
         private:
             string name;
             int stackSize;
+            int cards_winning_balanse;
 
         public:
             Player(string Name){
             name = Name;
             stackSize = 0;
+            cards_winning_balanse = 0;
             }
             Player(){
                 name = "player";
@@ -20,7 +25,10 @@ namespace ariel{
             int stacksize(){
                 return stackSize;
             }
-            // cardesTaken();
+            int cardesTaken(){
+                return cards_winning_balanse;
+            }
     };
 }
 
+#endif
