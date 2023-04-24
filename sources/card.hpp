@@ -12,9 +12,9 @@ namespace ariel{
         int number;
         string type;
     public:
-        Card(int num, string tp){
+        Card(int num, string c_type){
             number = num;
-            type = tp;
+            type = c_type;
         }
     };
     

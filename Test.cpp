@@ -11,16 +11,13 @@ using namespace std;
 
 
 TEST_CASE("Player Initialization"){
-    Player player("player");
-    CHECK(player.stacksize() == 0);
-    CHECK(player.cardesTaken() == 0);
-}
-
-TEST_CASE("Game Initialization"){
     Player Alice("Alice");
     Player Bob("Bob");
     Player Charlie("Charlie");
     Player Dani("Dani");
+
+    CHECK(Alice.stacksize() == 0);
+    CHECK(Alice.cardesTaken() == 0);
 
     Game game1(Alice, Bob);
     CHECK_NOTHROW(game1.playTurn());
